@@ -1,5 +1,5 @@
-public class randomizedPartition {
-    int numCompare = 0;
+public class RandomizedPartition {
+    private int numCompare = 0;
     
     int randomSelect(int[] A, int p, int r, int i) {
         numCompare++;
