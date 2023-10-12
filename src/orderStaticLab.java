@@ -22,7 +22,7 @@ class orderStaticLab {
             System.out.println("Error in finding the " + target + "th smallest term");
         }
     }
-
+    
     private static void generateInput(int[] arr, int max, int num) {
         for(int i = 0; i < num; i++) {
             arr[i] = (int) (Math.random() * max);
