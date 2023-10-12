@@ -6,4 +6,8 @@ public class medianOfFive {
     void hghdgdf() {
         System.out.println("bleh 5");
     }
+
+    void newFunction() {
+        System.out.println("A New Function");
+    }
 }
