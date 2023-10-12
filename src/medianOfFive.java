@@ -3,7 +3,7 @@ public class medianOfFive {
         return "Changes were made";
     }
 
-    void yetAnother() {
+    void afdfAnother() {
         System.out.println("bleh 5");
     }
 }
