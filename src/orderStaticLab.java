@@ -34,10 +34,6 @@ class OrderStaticLab {
         int[][] comparisons = new int[numRuns][2];
         int index = 0;
 
-        long[][] times = new long[numRuns][2];
-        long randTime;
-        long medianTime;
-
         RandomizedPartition rand = new RandomizedPartition();
         MedianOfFive median = new MedianOfFive();
 
@@ -53,15 +49,11 @@ class OrderStaticLab {
             Arrays.sort(sorted);
             int expected = sorted[target-1];
 
-            // randTime = System.nanoTime();
             rand.setComparisons(0);
             randResults = rand.randomSelect(randCopy, 0, randCopy.length-1, target);
-            // randTime = System.nanoTime() - randTime;
-
-            // medianTime = System.nanoTime();
+            
             median.setComparisons(0);
             medianResults = median.findStatistic(medianCopy, 0, medianCopy.length-1, target);
-            // medianTime = System.nanoTime() - medianTime;
 
             if(randResults != expected) {
                 System.out.println("Error in randomPartition on size " + inputSize + "; " + randResults + " is not equal to " + expected);
@@ -73,27 +65,20 @@ class OrderStaticLab {
                 comparisons[index][0] = rand.getComparisons();
                 comparisons[index][1] = median.getComparisons();
 
-                // times[index][0] = randTime;
-                // times[index][1] = medianTime;
                 index++;
             }
 
             inputSize += step;
         }
 
-        System.out.println("comparisons [ randomPartitioning | medianOfFive ]");
+        System.out.println("randomPartitioning:\n");
         for(int i = 0; i < comparisons.length; i++) {
             System.out.println(comparisons[i][0]);
         }
-        System.out.println("\n---\n");
+        
+        System.out.println("\nmedianOfFive:\n");
         for(int i = 0; i < comparisons.length; i++) {
             System.out.println(comparisons[i][1]);
         }
-        
-
-        // System.out.println("\ntimes (ms) [ randomPartitioning | medianOfFive ]");
-        // for(int i = 0; i < times.length; i++) {
-        //     System.out.println((times[i][0] / 1_000_000.0) + " " + (times[i][1] / 1_000_000.0));
-        // }
     }
 }
