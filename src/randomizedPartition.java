@@ -1,6 +1,6 @@
 public class RandomizedPartition {
     private int numCompare = 0;
-    
+
     int randomSelect(int[] A, int p, int r, int i) {
         numCompare++;
         if(p == r) {
@@ -34,6 +34,7 @@ public class RandomizedPartition {
         
         numCompare++;
         for(int j = p; j < r; j++) {
+            numCompare++;
             if(A[j] <= x) {
                 i++;
                 

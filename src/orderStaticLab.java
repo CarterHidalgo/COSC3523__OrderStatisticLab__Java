@@ -2,11 +2,11 @@ import java.util.Arrays;
 
 class OrderStaticLab {
     public static void main(String[] args) {
-        int startSize = 100_000;
-        int endSize = 1_000_000;
-        int stepSize = 100_000;
+        int start = 100_000;
+        int stop = 1_000_000;
+        int step = 100_000;
 
-        runComparisons(startSize, endSize, stepSize); 
+        runComparisons(start, stop, step); 
     }
     
     private static void generateInput(int[] arr, int max) {
@@ -15,40 +15,78 @@ class OrderStaticLab {
         }
     }
 
-    private static void runComparisons(int start, int stop, int stepSize) {
-        if(stop < start || start < 0 || stepSize <= 0) {
-            System.out.println("Invalid arguments. Expected (start > 0, stop > start, stepSize > 0)");
+    private static void runComparisons(int start, int stop, int step) {
+        if(stop < start || start <= 0 || step <= 0) {
+            System.out.println("Invalid arguments. Expected (start > 0, stop > start, step > 0)");
             return;
         }
 
+        int numRuns = ((stop - start) / step) + 1;
         int inputSize = start;
         int maxValue = Integer.MAX_VALUE;
         int arr[];
         int sorted[];
+        int randCopy[];
+        int medianCopy[];
         int target;
         int randResults;
         int medianResults;
-        RandomizedPartition rand = new RandomizedPartition();
+        int[][] comparisons = new int[numRuns][2];
+        int index = 0;
 
-        for(int i = start; i <= stop; i += stepSize) {
+        long[][] times = new long[numRuns][2];
+        long randTime;
+        long medianTime;
+
+        RandomizedPartition rand = new RandomizedPartition();
+        MedianOfFive median = new MedianOfFive();
+
+        for(int i = start; i <= stop; i += step) {
             arr = new int[inputSize];
             target = (int) ((Math.random() * (inputSize)) + 1);
 
             generateInput(arr, maxValue);
 
             sorted = Arrays.copyOfRange(arr, 0, arr.length);
+            randCopy = Arrays.copyOfRange(arr, 0, arr.length);
+            medianCopy = Arrays.copyOfRange(arr, 0, arr.length);
             Arrays.sort(sorted);
+            int expected = sorted[target-1];
 
-            randResults = rand.randomSelect(arr, 0, arr.length-1, target);
+            randTime = System.nanoTime();
+            randResults = rand.randomSelect(randCopy, 0, randCopy.length-1, target);
+            randTime = System.nanoTime() - randTime;
 
-            if(randResults != sorted[target-1]) {
-                System.out.println("Error on size " + inputSize + "; " + randResults + " is not equal to " + sorted[target-1]);
+            medianTime = System.nanoTime();
+            medianResults = median.findStatistic(medianCopy, 0, medianCopy.length-1, target);
+            medianTime = System.nanoTime() - medianTime;
+
+            if(randResults != expected) {
+                System.out.println("Error in randomPartition on size " + inputSize + "; " + randResults + " is not equal to " + expected);
+                break;
+            } else if(medianResults != expected) {
+                System.out.println("Error in medianOfFive on size " + inputSize + "; " + medianResults + " is not equal to " + expected);
                 break;
             } else {
-                System.out.println("Found the " + target + "th smallest in " + rand.getComparisons() + " comparisons");
+                comparisons[index][0] = rand.getComparisons();
+                comparisons[index][1] = median.getComparisons();
+
+                times[index][0] = randTime;
+                times[index][1] = medianTime;
+                index++;
             }
 
-            inputSize += stepSize;
+            inputSize += step;
+        }
+
+        System.out.println("comparisons [ randomPartitioning | medianOfFive ]");
+        for(int i = 0; i < comparisons.length; i++) {
+            System.out.println(comparisons[i][0] + " " + comparisons[i][1]);
+        }
+
+        System.out.println("\ntimes (ms) [ randomPartitioning | medianOfFive ]");
+        for(int i = 0; i < times.length; i++) {
+            System.out.println((times[i][0] / 1_000_000.0) + " " + (times[i][1] / 1_000_000.0));
         }
     }
 }

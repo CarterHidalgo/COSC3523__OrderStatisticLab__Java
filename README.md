@@ -3,7 +3,7 @@
 Author(s): Carter Hidalgo  
 Course: COSC3523 Analysis of Algorithms  
 Project: COSC3523__OrderStatisticLab__Java  
-Date Due: 10/17/2023  
+Date Due: 10/19/2023  
 
 Input: Generated random integers and a random ith order statistic  
 Output: Number of comparisons for RandomSelect and Median-Of-Five on the same input  
@@ -13,6 +13,6 @@ Description: The program generates a random input and tests how quickly RandomSe
 
 Development Computer:  LG Gram 2022  
 Operating System: Windows 11 Home  
-Compiler: Java Programming Language Compiler
+Compiler: Java Programming Language Compiler  
 Integrated Development Environment: Visual Studio Code  
 Operational Status: Operational  
