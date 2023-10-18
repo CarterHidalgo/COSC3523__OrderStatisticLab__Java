@@ -92,7 +92,7 @@ public class MedianOfFive {
         int end = r;
  
         numCompare++;
-        for (int i = start; i <= end;) {
+        for(int i = start; i <= end;) {
             if (arr[i] < x) {
                 int temp = arr[start];
                 arr[start] = arr[i];
@@ -117,5 +117,9 @@ public class MedianOfFive {
 
     int getComparisons() {
         return numCompare;
+    }
+
+    void setComparisons(int value) {
+        numCompare = value;
     }
 }

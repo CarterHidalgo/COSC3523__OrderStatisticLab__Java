@@ -55,4 +55,8 @@ public class RandomizedPartition {
     int getComparisons() {
         return numCompare;
     }
+
+    void setComparisons(int value) {
+        numCompare = value;
+    }
 }
