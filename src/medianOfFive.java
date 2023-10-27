@@ -47,7 +47,7 @@ public class MedianOfFive {
             arrFives.add(temp);
             numCompare++;
         }
-
+        
         int[] medians = findMedians(arrFives);
 
         return select(medians, 0, medians.length-1);
@@ -55,7 +55,7 @@ public class MedianOfFive {
 
     int[] findMedians(ArrayList<ArrayList<Integer>> arr) {
         int[] medians = new int[arr.size()];
-
+        
         numCompare++;
         for(int i = 0; i < arr.size(); i++) {
             sort(arr.get(i));

@@ -29,6 +29,7 @@ class OrderStaticLab {
         int randCopy[];
         int medianCopy[];
         int target;
+        int expected;
         int randResults;
         int medianResults;
         int[][] comparisons = new int[numRuns][2];
@@ -47,8 +48,8 @@ class OrderStaticLab {
             randCopy = Arrays.copyOfRange(arr, 0, arr.length);
             medianCopy = Arrays.copyOfRange(arr, 0, arr.length);
             Arrays.sort(sorted);
-            int expected = sorted[target-1];
-
+            expected = sorted[target-1];
+                            
             rand.setComparisons(0);
             randResults = rand.randomSelect(randCopy, 0, randCopy.length-1, target);
             
@@ -58,7 +59,8 @@ class OrderStaticLab {
             if(randResults != expected) {
                 System.out.println("Error in randomPartition on size " + inputSize + "; " + randResults + " is not equal to " + expected);
                 break;
-            } else if(medianResults != expected) {
+            } else 
+            if(medianResults != expected) {
                 System.out.println("Error in medianOfFive on size " + inputSize + "; " + medianResults + " is not equal to " + expected);
                 break;
             } else {
